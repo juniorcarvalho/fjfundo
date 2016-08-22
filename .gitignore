@@ -1,0 +1,9 @@
+.DS_Store
+.env
+.idea
+.gloria
+*.sqlite3
+*.pyc
+__pycache__
+TABELAS E CHAVES.sql
+start_dev.sh
