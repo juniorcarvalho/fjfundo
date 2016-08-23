@@ -7,3 +7,5 @@
 __pycache__
 TABELAS E CHAVES.sql
 start_dev.sh
+.ipynb_checkpoints/
+
