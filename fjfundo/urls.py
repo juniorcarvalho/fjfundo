@@ -15,10 +15,15 @@ Including another URLconf
     3. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import url
-from django.contrib import admin
-from fjfundo.core.views import home
+from fjfundo.core.views import dashboard
+from django.contrib.auth.views import login, logout
 
 urlpatterns = [
-    url(r'^$', home),
-    url(r'^admin/', admin.site.urls),
+    url(r'^$', login,
+        {'template_name': 'index.html'}, name='login'),
+    url(r'^dashboard/', dashboard, name='dashboard'),
+    url(r'^sair/', logout,
+        {'next_page': 'login'}, name='logout'),
+
+    # url(r'^admin/', admin.site.urls),
 ]
