@@ -26,8 +26,8 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-#ALLOWED_HOSTS = config('ALLOWED_HOSTS', default=[], cast=Csv())
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default=[], cast=Csv())
+
 
 
 # Application definition
@@ -128,6 +128,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_URL = '/media/'
 
 #Auth
-LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'login'
+LOGIN_URL = 'inicio'
+LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_URL = 'logout'
+AUTH_USER_MODEL = 'core.MyUser'
