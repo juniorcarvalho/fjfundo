@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import resolve_url as r
 from django.template import RequestContext
 from fjfundo.core.forms import LoginForm
-
+from fjfundo.core.forms import EditAccountForm
 
 def inicio(request):
     if request.method == "POST":
@@ -24,6 +24,17 @@ def inicio(request):
         'form': form,
     }, context_instance=RequestContext(request))
 
+
 @login_required
 def dashboard(request):
     return render(request, 'dashboard.html')
+
+
+@login_required
+def edit_account(request):
+    if request.method == 'POST':
+        form = EditAccountForm(request.POST, instance=request.user)
+    else:
+        form = EditAccountForm(instance=request.user)
+
+    return render(request, 'edit_account.html', {'form': form})

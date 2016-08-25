@@ -22,8 +22,11 @@ class LoginForm(forms.ModelForm):
             raise forms.ValidationError("Email / senha não são válidos.")
         return self.cleaned_data
 
-    #def login(self, request):
-    #    email = self.cleaned_data.get('email')
-    #    password = self.cleaned_data.get('password')
-    #    user = authenticate(username=email, password=password)
-    #       return user
+
+class EditAccountForm(forms.ModelForm):
+
+    class Meta:
+        model = MyUser
+        fields = ['email', 'turma', 'cpf', 'identidade', 'nome',
+                  'logradouro', 'numero', 'complemento', 'bairro',
+                  'cidade', 'uf', 'cep', 'fone1', 'fone2']

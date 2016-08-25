@@ -67,9 +67,6 @@
               <!-- Menu Body -->
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Editar Conta</a>
-                </div>
                 <div class="pull-right">
                   <a href="{% url 'logout' %}" class="btn btn-default btn-flat">Sair</a>
                 </div>
@@ -87,8 +84,8 @@
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
         <li class="header">Menu Principal</li>
-        <li class="active">
-          <a href=""><i class="glyphicon glyphicon-home"></i><span>Início</span></a>
+        <li class={% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}>
+          <a href="{% url 'dashboard' %}"><i class="glyphicon glyphicon-home"></i><span>Início</span></a>
         </li>
 
         <li class="treeview">
@@ -99,14 +96,20 @@
             </a>
             <ul class="treeview-menu">
             	<li class="treeview">
-            	   <a href=""><i class="glyphicon glyphicon-chevron-right"></i>
+            	   <a href=""><i class="glyphicon glyphicon glyphicon-th-list"></i>
             	   <span>Extrato</span></a>
             	</li>
             	<li class="treeview">
-            	   <a href=""><i class="glyphicon glyphicon-chevron-right"></i>
+            	   <a href=""><i class="glyphicon glyphicon glyphicon-barcode"></i>
             	   <span>2a. Via Boleto </span></a>
             	</li>
             </ul>
+        </li>
+        <li class={% if request.resolver_match.url_name == "edit_account" %}active{% endif %}>
+            <a href="{% url 'edit_account' %}">
+                <i class="glyphicon glyphicon-user"></i>
+                <span>Meus dados</span></a>
+            </a>
         </li>
       </ul>
       <!-- /.sidebar-menu -->
@@ -121,10 +124,10 @@
   <footer class="main-footer">
     <!-- To the right -->
     <div class="pull-right hidden-xs">
-      Anything you want
+      v1.0
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2016 <a href="#">ConBits</a>.</strong>
+    <strong>Copyright &copy; 2016 <a href="#" >ConBits</a>.</strong>
   </footer>
   <div class="control-sidebar-bg"></div>
 </div>

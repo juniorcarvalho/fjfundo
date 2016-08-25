@@ -1,4 +1,4 @@
-{% extends 'base_dashboard.html' %}
+{% extends 'base.html' %}
 {% block content %}
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -9,7 +9,7 @@
       <small>Início</small>
     </h1>
     <ol class="breadcrumb">
-      <li><a href="#"><i class="fa fa-dashboard"></i> Menu Principal</a></li>
+      <li><a href="{% url 'dashboard' %}"><i class="glyphicon glyphicon-home"></i>Menu Principal</a></li>
       <li class="active">Início</li>
     </ol>
   </section>

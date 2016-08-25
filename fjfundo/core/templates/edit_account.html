@@ -1,0 +1,154 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Painel do Usuário
+      <small>Meus dados</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="{% url 'dashboard' %}"><i class="glyphicon glyphicon-home"></i>Menu Principal</a></li>
+      <li class="active">Meus dados</li>
+    </ol>
+  </section>
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+        <div class="col-md-12">
+{#            <div class="box-header with-border">#}
+{#                <div class="box-title">#}
+{#                    Editar dados#}
+{#                </div>#}
+{#            </div>#}
+            <div class="box-body">
+            <form method="post">
+              {% csrf_token %}
+              {% if success %}
+                <p>Os dados foram alterados com sucesso</p>
+              {% endif %}
+              {{ form.non_field_errors }}
+
+              <div class="row">
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    {{ form.email.label_tag  }}
+                    {{ form.email|add_class:"form-control"|attr:"readonly" }}
+                    {{ form.email.errors }}
+                  </div>
+                </div>
+                <div class="col-xs-6">
+                  <div class="form-group">
+                      {{ form.turma.label_tag }}
+                      {{ form.turma|add_class:"form-control"|attr:"readonly" }}
+                      {{ form.email.errors }}
+                  </div>
+                 </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-6">
+                  <div class="form-group">
+                      <b>CPF:</b>
+                      {{ form.cpf|add_class:"form-control"|attr:"readonly" }}
+                      {{ form.cpf.errors }}
+                  </div>
+                </div>
+                <div class="col-xs-6">
+                  <div class="form-group">
+                      {{ form.identidade.label_tag }}
+                      {{ form.identidade|add_class:"form-control"|attr:"readonly" }}
+                      {{ form.identidade.errors }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                  {{ form.nome.label_tag }}
+                  {{ form.nome|add_class:"form-control"}}
+                  {{ form.nome.errors }}
+              </div>
+
+              <div class="row">
+                <div class="col-xs-6">
+                  <div class="form-group">
+                    {{ form.logradouro.label_tag }}
+                    {{ form.logradouro|add_class:"form-control"}}
+                    {{ form.logradouro.errors }}
+                  </div>
+                </div>
+                <div class="col-xs-3">
+                  <div class="form-group">
+                    {{ form.numero.label_tag }}
+                    {{ form.numero|add_class:"form-control"}}
+                    {{ form.numero.errors }}
+                  </div>
+                </div>
+                <div class="col-xs-3">
+                  <div class="form-group">
+                    {{ form.complemento.label_tag }}
+                    {{ form.complemento|add_class:"form-control"}}
+                    {{ form.complemento.errors }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-4">
+                  <div class="form-group">
+                    {{ form.bairro.label_tag }}
+                    {{ form.bairro|add_class:"form-control"}}
+                    {{ form.bairro.errors }}
+                  </div>
+                </div>
+                <div class="col-xs-5">
+                  <div class="form-group">
+                    {{ form.cidade.label_tag }}
+                    {{ form.cidade|add_class:"form-control"}}
+                    {{ form.cidade.errors }}
+                  </div>
+                </div>
+                <div class="col-xs-1">
+                  <div class="form-group">
+                    {{ form.uf.label_tag }}
+                    {{ form.uf|add_class:"form-control"}}
+                    {{ form.uf.errors }}
+                  </div>
+                </div>
+                <div class="col-xs-2">
+                  <div class="form-group">
+                    {{ form.cep.label_tag }}
+                    {{ form.cep|add_class:"form-control"}}
+                    {{ form.cep.errors }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-4">
+                    <b>Telefone:</b>
+                    {{ form.fone1|add_class:"form-control"}}
+                    {{ form.fone1.errors }}
+                </div>
+                <div class="col-xs-4">
+                    <b>Celular:</b>
+                    {{ form.fone1|add_class:"form-control"}}
+                    {{ form.fone1.errors }}
+                </div>
+              </div>
+              <br/>
+              <div class="row">
+                <div class="col-xs-2">
+                  <button type="submit" class="btn btn-primary btn-block btn-flat">Salvar</button>
+                </div>
+              </div>
+            </form>
+        </div>
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+{% endblock %}

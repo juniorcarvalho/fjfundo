@@ -15,14 +15,14 @@ Including another URLconf
     3. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import url
-from fjfundo.core.views import dashboard, inicio
-from django.contrib.auth.views import login, logout
+from fjfundo.core.views import dashboard, inicio, edit_account
+from django.contrib.auth.views import logout
 
 urlpatterns = [
     url(r'^$', inicio, name='inicio'),
     url(r'^dashboard/', dashboard, name='dashboard'),
     url(r'^sair/', logout,
         {'next_page': 'inicio'}, name='logout'),
-
+    url(r'^edit_account/', edit_account, name='edit_account')
     # url(r'^admin/', admin.site.urls),
 ]
