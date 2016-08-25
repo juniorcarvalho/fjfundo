@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'rest_framework',
+    'rest_framework.authtoken',
     'test_without_migrations',
     'fjfundo.core',
     'fjfundo.mensalidades',
@@ -133,3 +134,10 @@ LOGIN_URL = 'inicio'
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_URL = 'logout'
 AUTH_USER_MODEL = 'core.MyUser'
+
+# desabilita browse api
+# REST_FRAMEWORK = {
+#     'DEFAULT_RENDERER_CLASSES': (
+#         'rest_framework.renderers.JSONRenderer',
+#     )
+# }

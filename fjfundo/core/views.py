@@ -7,6 +7,7 @@ from django.template import RequestContext
 from fjfundo.core.forms import LoginForm
 from fjfundo.core.forms import EditAccountForm
 
+
 def inicio(request):
     if request.method == "POST":
         form = LoginForm(data=request.POST)
