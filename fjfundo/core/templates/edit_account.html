@@ -51,7 +51,7 @@
               <div class="row">
                 <div class="col-xs-6">
                   <div class="form-group">
-                      <b>CPF:</b>
+                      {{ form.cpf.label_tag }}
                       {{ form.cpf|add_class:"form-control"|attr:"readonly" }}
                       {{ form.cpf.errors }}
                   </div>

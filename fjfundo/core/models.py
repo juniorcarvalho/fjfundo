@@ -33,7 +33,7 @@ class MyUser(PermissionsMixin, AbstractBaseUser):
         unique=True
     )
     turma = models.ForeignKey(Turma, null=True)
-    cpf = models.CharField(verbose_name='cpf', max_length=14, null=True )
+    cpf = models.CharField(verbose_name='cpf', max_length=14, null=True)
     identidade = models.CharField(verbose_name='identidade', max_length=20, null=True)
     nome = models.CharField(verbose_name='nome', max_length=50, null=True)
     logradouro = models.CharField(verbose_name='logradouro', max_length=70, null=True)
