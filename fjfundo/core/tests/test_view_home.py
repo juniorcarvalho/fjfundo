@@ -34,4 +34,4 @@ class HomeTest(TestCase):
     def test_has_field(self):
         """ Form must have 2 fields"""
         form = self.response.context['form']
-        self.assertSequenceEqual( ['email', 'password'], list(form.fields))
+        self.assertSequenceEqual(['email', 'password'], list(form.fields))

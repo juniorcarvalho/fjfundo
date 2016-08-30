@@ -16,3 +16,9 @@ class DashboardTest(TestCase):
         """ Must use dashboard.html """
         self.assertTemplateUsed(self.response, 'dashboard.html')
 
+    def test_html(self):
+        """ Html must contain input tags"""
+        self.assertContains(self.response, '<section class="content"')
+        self.assertContains(self.response, 'Início')
+        self.assertContains(self.response, '<li class="active">Início')
+
