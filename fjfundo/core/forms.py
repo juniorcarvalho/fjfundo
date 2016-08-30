@@ -5,7 +5,7 @@ from fjfundo.core.models import MyUser
 
 class LoginForm(forms.ModelForm):
     email = forms.EmailField(required=True)
-    password = forms.CharField(widget=forms.PasswordInput, required=True)
+    password = forms.CharField(label='Senha', widget=forms.PasswordInput, required=True)
 
     class Meta:
         model = MyUser
