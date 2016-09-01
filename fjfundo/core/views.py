@@ -33,9 +33,14 @@ def dashboard(request):
 
 @login_required
 def edit_account(request):
+    context = {}
     if request.method == 'POST':
         form = EditAccountForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            form = EditAccountForm(instance=request.user)
+            context['success'] = True
     else:
         form = EditAccountForm(instance=request.user)
-
-    return render(request, 'edit_account.html', {'form': form})
+    context['form'] = form
+    return render(request, 'edit_account.html', context)

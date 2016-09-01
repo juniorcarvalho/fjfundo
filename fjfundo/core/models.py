@@ -44,7 +44,7 @@ class MyUser(PermissionsMixin, AbstractBaseUser):
     uf = models.CharField(verbose_name='uf', max_length=2, null=True)
     cep = models.CharField(verbose_name='cep', max_length=8, null=True)
     fone1 = models.CharField(verbose_name='telefone', max_length=14, null=True)
-    fone2 = models.CharField(verbose_name='telefone', max_length=14, null=True)
+    fone2 = models.CharField(verbose_name='celular', max_length=14, null=True, blank=True)
 
     USERNAME_FIELD = 'email'
     objects = MyUserManager()
