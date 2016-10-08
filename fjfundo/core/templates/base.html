@@ -17,6 +17,8 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{% static 'dist/css/AdminLTE.min.css' %}">
   <link rel="stylesheet" href="{% static 'dist/css/skins/skin-blue.min.css' %}">
+  {% block css %}
+  {% endblock css %}
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -105,12 +107,21 @@
             	</li>
             </ul>
         </li>
-        <li class={% if request.resolver_match.url_name == "edit_account" %}active{% endif %}>
-            <a href="{% url 'edit_account' %}">
-                <i class="glyphicon glyphicon-user"></i>
-                <span>Meus dados</span></a>
-            </a>
-        </li>
+        {% if user.nivel == 0 %}
+            <li class={% if request.resolver_match.url_name == "account_edit" %}active{% endif %}>
+                <a href="{% url 'account_edit' %}">
+                    <i class="glyphicon glyphicon-user"></i>
+                    <span>Meus dados</span></a>
+                </a>
+            </li>
+        {% else %}
+            <li class={% if request.resolver_match.url_name == "account_list" %}active{% endif %}>
+                <a href="{% url 'account_list' %}">
+                    <i class="glyphicon glyphicon-user"></i>
+                    <span>Associados</span></a>
+                </a>
+            </li>
+        {% endif %}
       </ul>
       <!-- /.sidebar-menu -->
     </section>
@@ -137,5 +148,7 @@
 <script src="{% static 'plugins/jQuery/jquery-2.2.3.min.js' %}"></script>
 <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
 <script src="{% static 'dist/js/app.min.js' %}"></script>
+{% block javascript %}
+{% endblock javascript %}
 </body>
 </html>

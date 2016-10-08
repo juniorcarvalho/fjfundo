@@ -6,7 +6,7 @@ from django.shortcuts import resolve_url as r
 from django.template import RequestContext
 from fjfundo.core.forms import LoginForm
 from fjfundo.core.forms import EditAccountForm
-
+from fjfundo.core.models import MyUser
 
 def inicio(request):
     if request.method == "POST":
@@ -32,7 +32,7 @@ def dashboard(request):
 
 
 @login_required
-def edit_account(request):
+def account_edit(request):
     context = {}
     if request.method == 'POST':
         form = EditAccountForm(request.POST, instance=request.user)
@@ -43,4 +43,11 @@ def edit_account(request):
     else:
         form = EditAccountForm(instance=request.user)
     context['form'] = form
-    return render(request, 'edit_account.html', context)
+    return render(request, 'account_edit.html', context)
+
+
+@login_required
+def account_list(request):
+    users = MyUser.objects.filter(turma=request.user.turma)
+    return render(request, 'account_list.html', {'users': users})
+

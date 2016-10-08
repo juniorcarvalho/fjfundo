@@ -3,11 +3,11 @@ from fjfundo.core.models import MyUser
 from fjfundo.core.forms import EditAccountForm
 
 
-class EditAccountTest(TestCase):
+class AccountEditTest(TestCase):
     def setUp(self):
         self.user = MyUser.objects.create_user(email='user@email.com', password='senha@123')
         self.client.login(email='user@email.com', password='senha@123')
-        self.response = self.client.get('/edit_account/')
+        self.response = self.client.get('/account_edit/')
 
     def test_get(self):
         """ GET/ must return status code 200"""
@@ -15,7 +15,7 @@ class EditAccountTest(TestCase):
 
     def test_template(self):
         """ Must use edit_account.html """
-        self.assertTemplateUsed(self.response, 'edit_account.html')
+        self.assertTemplateUsed(self.response, 'account_edit.html')
 
     def test_csrf(self):
         """ html must contain csrf"""

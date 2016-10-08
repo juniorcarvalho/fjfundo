@@ -15,7 +15,7 @@ Including another URLconf
     3. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
 from django.conf.urls import url, include
-from fjfundo.core.views import dashboard, inicio, edit_account
+from fjfundo.core.views import dashboard, inicio, account_edit, account_list
 from django.contrib.auth.views import logout
 from rest_framework.authtoken.views import obtain_auth_token
 from fjfundo.api.urls import router
@@ -25,7 +25,8 @@ urlpatterns = [
     url(r'^dashboard/', dashboard, name='dashboard'),
     url(r'^sair/', logout,
         {'next_page': 'inicio'}, name='logout'),
-    url(r'^edit_account/', edit_account, name='edit_account'),
+    url(r'^account_edit/', account_edit, name='account_edit'),
+    url(r'^account_list/', account_list, name='account_list'),
     url(r'^api/token/', obtain_auth_token, name='api-token'),
     url(r'^api/', include(router.urls)),
 ]

@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static from staticfiles %}
+
+{% block css %}
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{% static 'datatables/css/jquery.dataTables.min.css' %}">
+    <style>
+        th, table.dataTable tbody td {
+            vertical-align: middle;
+        }
+    </style>
+{% endblock css %}
+
+{% block content %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Associados
+{#      <small>Associados</small>#}
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="{% url 'dashboard' %}"><i class="glyphicon glyphicon-home"></i>Menu Principal</a></li>
+      <li class="active">Associados</li>
+    </ol>
+  </section>
+  <!-- Main content -->
+  <section class="content">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="box-body">
+                  <table id="occurrences_list" class="display nowrap" cellspacing="0" width="100%">
+                      <thread>
+                          <tr>
+                              <th>Nome</th>
+                              <th>Email</th>
+                              <th></th>
+                              <th></th>
+                          </tr>
+                      </thread>
+                      <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td>{{ user.nome }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>
+                                    <button type="button" class="btn btn-success btn-xs center-block">
+                                        Atualizar Dados
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-sm btn-info btn-xs center-block">
+                                        Extrato financeiro
+                                    </button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+  </section>
+  <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+{% endblock content %}
+
+{% block javascript %}
+   <!-- DataTables -->
+    <script src="{% static 'datatables/js/jquery.dataTables.min.js' %}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#occurrences_list').DataTable( {
+                scrollX: true,
+                retrieve: true,
+                searching: false,
+                info: true,
+                paging: true,
+                lengthChange: false,
+                columnDefs: [
+                    { orderable: true, className: 'reorder', targets: [0, 1, ] },
+                    { orderable: false, targets: '_all' }
+                ],
+                language: {
+                    sEmptyTable: "Nenhum registro encontrado",
+                    sInfo: "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                    sInfoEmpty: "Mostrando 0 até 0 de 0 registros",
+                    sInfoFiltered: "(Filtrados de _MAX_ registros)",
+                    sInfoPostFix: "",
+                    sInfoThousands: ".",
+                    sLengthMenu: "_MENU_ resultados por página",
+                    sLoadingRecords: "Carregando...",
+                    sProcessing: "Processando...",
+                    sZeroRecords: "Nenhum registro encontrado",
+                    sSearch: "Pesquisar",
+                    oPaginate: {
+                        sNext: "Próximo",
+                        sPrevious: "Anterior",
+                        sFirst: "Primeiro",
+                        sLast: "Último"
+                    },
+                    oAria: {
+                        sSortAscending: ": Ordenar colunas de forma ascendente",
+                        sSortDescending: ": Ordenar colunas de forma descendente"
+                    }
+                }
+            } );
+        } );
+    </script>
+{% endblock javascript %}
