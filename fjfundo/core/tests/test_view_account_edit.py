@@ -1,13 +1,14 @@
 from django.test import TestCase
 from fjfundo.core.models import MyUser
 from fjfundo.core.forms import EditAccountForm
+from django.shortcuts import resolve_url as r
 
 
 class AccountEditTest(TestCase):
     def setUp(self):
         self.user = MyUser.objects.create_user(email='user@email.com', password='senha@123')
         self.client.login(email='user@email.com', password='senha@123')
-        self.response = self.client.get('/account_edit/')
+        self.response = self.client.get(r('/account_edit/', self.user.pk))
 
     def test_get(self):
         """ GET/ must return status code 200"""

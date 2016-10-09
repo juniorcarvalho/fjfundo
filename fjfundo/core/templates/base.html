@@ -109,7 +109,7 @@
         </li>
         {% if user.nivel == 0 %}
             <li class={% if request.resolver_match.url_name == "account_edit" %}active{% endif %}>
-                <a href="{% url 'account_edit' %}">
+                <a href="{% url 'account_edit' user.pk %}">
                     <i class="glyphicon glyphicon-user"></i>
                     <span>Meus dados</span></a>
                 </a>

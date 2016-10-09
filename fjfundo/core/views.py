@@ -1,12 +1,13 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, render_to_response
+from django.shortcuts import render, render_to_response, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.shortcuts import resolve_url as r
 from django.template import RequestContext
 from fjfundo.core.forms import LoginForm
 from fjfundo.core.forms import EditAccountForm
 from fjfundo.core.models import MyUser
+
 
 def inicio(request):
     if request.method == "POST":
@@ -32,16 +33,17 @@ def dashboard(request):
 
 
 @login_required
-def account_edit(request):
+def account_edit(request, id):
     context = {}
+    user = get_object_or_404(MyUser, pk=id)
     if request.method == 'POST':
-        form = EditAccountForm(request.POST, instance=request.user)
+        form = EditAccountForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
-            form = EditAccountForm(instance=request.user)
+            form = EditAccountForm(instance=user)
             context['success'] = True
     else:
-        form = EditAccountForm(instance=request.user)
+        form = EditAccountForm(instance=user)
     context['form'] = form
     return render(request, 'account_edit.html', context)
 
@@ -50,4 +52,3 @@ def account_edit(request):
 def account_list(request):
     users = MyUser.objects.filter(turma=request.user.turma)
     return render(request, 'account_list.html', {'users': users})
-

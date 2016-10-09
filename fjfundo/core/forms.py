@@ -25,6 +25,13 @@ class LoginForm(forms.ModelForm):
 
 class EditAccountForm(forms.ModelForm):
 
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        queryset = MyUser.objects.filter(email=email).exclude(pk=self.instance.pk)
+        if queryset.exists():
+            raise forms.ValidationError('Email já cadastrado.')
+        return email
+
     class Meta:
         model = MyUser
         fields = ['email', 'turma', 'cpf', 'identidade', 'nome',

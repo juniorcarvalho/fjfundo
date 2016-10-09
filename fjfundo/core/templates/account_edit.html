@@ -6,12 +6,15 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Painel do Usuário
-      <small>Meus dados</small>
+      Associados
+      <small>Atualizar cadastro</small>
     </h1>
     <ol class="breadcrumb">
       <li><a href="{% url 'dashboard' %}"><i class="glyphicon glyphicon-home"></i>Menu Principal</a></li>
-      <li class="active">Meus dados</li>
+      {% if user.nivel > 0 %}
+          <li><a href="{% url 'account_list' %}">Associados</a></li>
+      {% endif %}
+      <li class="active">Atualizar cadastro</li>
     </ol>
   </section>
   <!-- Main content -->
@@ -26,9 +29,6 @@
             <div class="box-body">
             <form method="post">
               {% csrf_token %}
-              {% if success %}
-                <p>Os dados foram alterados com sucesso</p>
-              {% endif %}
               {{ form.non_field_errors }}
 
               <div class="row">
@@ -43,7 +43,7 @@
                   <div class="form-group">
                       {{ form.turma.label_tag }}
                       {{ form.turma|add_class:"form-control"|attr:"readonly" }}
-                      {{ form.email.errors }}
+                      {{ form.turma.errors }}
                   </div>
                  </div>
               </div>
@@ -143,7 +143,19 @@
                 <div class="col-xs-2">
                   <button type="submit" class="btn btn-primary btn-block btn-flat">Salvar</button>
                 </div>
+                {% if user.nivel > 0 %}
+                    <div class="col-xs-2">
+                      <a href="{% url 'account_list' %}" class="btn btn-danger btn-block btn-flat">Retornar</a>
+                    </div>
+                {% else %}
+                    <div class="col-xs-2">
+                      <a href="{% url 'dashboard' %}" class="btn btn-danger btn-block btn-flat">Retornar</a>
+                    </div>
+                {% endif %}
               </div>
+              {% if success %}
+                <p>Cadastro atualizado.</p>
+              {% endif %}
             </form>
         </div>
     </div>

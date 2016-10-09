@@ -25,7 +25,7 @@ urlpatterns = [
     url(r'^dashboard/', dashboard, name='dashboard'),
     url(r'^sair/', logout,
         {'next_page': 'inicio'}, name='logout'),
-    url(r'^account_edit/', account_edit, name='account_edit'),
+    url(r'^account_edit/(?P<id>\d+)/$', account_edit, name='account_edit'),
     url(r'^account_list/', account_list, name='account_list'),
     url(r'^api/token/', obtain_auth_token, name='api-token'),
     url(r'^api/', include(router.urls)),
