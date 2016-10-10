@@ -30,7 +30,6 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = []
 
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -45,7 +44,8 @@ INSTALLED_APPS = [
     'test_without_migrations',
     'fjfundo.core',
     'fjfundo.mensalidades',
-    'widget_tweaks'
+    'fjfundo.arquivos',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -126,8 +126,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-MEDIA_URL = '/media/'
+CSV_ROOT = os.path.join(BASE_DIR, 'csv')
 
 #Auth
 LOGIN_URL = 'inicio'

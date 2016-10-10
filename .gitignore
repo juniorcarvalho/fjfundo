@@ -9,4 +9,5 @@ TABELAS E CHAVES.sql
 start_dev.sh
 .ipynb_checkpoints/
 staticfiles
+csv
 cores.txt

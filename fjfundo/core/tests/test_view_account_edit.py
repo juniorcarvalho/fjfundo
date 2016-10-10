@@ -8,7 +8,7 @@ class AccountEditTest(TestCase):
     def setUp(self):
         self.user = MyUser.objects.create_user(email='user@email.com', password='senha@123')
         self.client.login(email='user@email.com', password='senha@123')
-        self.response = self.client.get(r('/account_edit/', self.user.pk))
+        self.response = self.client.get(r('account_edit', id=self.user.pk))
 
     def test_get(self):
         """ GET/ must return status code 200"""
@@ -34,6 +34,11 @@ class AccountEditTest(TestCase):
         """ Context must have a LoginForm form"""
         form = self.response.context['form']
         self.assertIsInstance(form, EditAccountForm)
+
+    def test_context(self):
+        """User must be in context"""
+        user = self.response.context['user']
+        self.assertIsInstance(user, MyUser)
 
     def test_has_field(self):
         """ Form must have 14 fields"""

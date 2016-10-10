@@ -15,7 +15,6 @@ class TurmaModelTest(TestCase):
         self.turma = Turma.objects.create(
             fundo=self.fundo,
             nome_turma='nome da turma',
-            valor_mensal=1.0,
             dia_venc='10',
             data_formatura=date(2016, 12, 31),
             valor_multa=2.0,
