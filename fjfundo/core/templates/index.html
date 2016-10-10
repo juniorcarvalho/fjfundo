@@ -4,7 +4,6 @@
     <p class="login-box-msg"> <b>Informe seus dados de login</b></p>
     <form method="post">
         {% csrf_token %}
-        {{ form.non_field_errors }}
         {% for field in form %}
         <div class="form-group">
           {{ field.label_tag}}
@@ -17,6 +16,8 @@
                 <button type="submit" class="btn btn-primary btn-block btn-flat">Entrar</button>
             </div>
         </div>
+        <br/>
+        {{ form.non_field_errors }}
     </form>
     <br/>
     <a href="#">Esqueci minha senha</a><br>

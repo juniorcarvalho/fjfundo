@@ -19,7 +19,7 @@ class LoginForm(forms.ModelForm):
             if not user.is_active:
                 raise forms.ValidationError("Conta não está ativa.")
         else:
-            raise forms.ValidationError("Email / senha não são válidos.")
+            raise forms.ValidationError("Acesso não autorizado.")
         return self.cleaned_data
 
 

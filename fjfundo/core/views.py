@@ -50,5 +50,5 @@ def account_edit(request, id):
 
 @login_required
 def account_list(request):
-    users = MyUser.objects.filter(turma=request.user.turma)
+    users = MyUser.objects.filter(turma=request.user.turma).order_by('nome')
     return render(request, 'account_list.html', {'users': users})

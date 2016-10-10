@@ -4,7 +4,7 @@
 
 {% block css %}
     <!-- DataTables -->
-    <link rel="stylesheet" href="{% static 'datatables/css/jquery.dataTables.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
     <style>
         th, table.dataTable tbody td {
             vertical-align: middle;
@@ -13,9 +13,7 @@
 {% endblock css %}
 
 {% block content %}
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-  <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
       Associados
@@ -26,64 +24,61 @@
       <li class="active">Associados</li>
     </ol>
   </section>
-  <!-- Main content -->
+
   <section class="content">
       <div class="row">
-          <div class="col-md-12">
-              <div class="box-body">
-                  <table id="users_list" class="display nowrap" cellspacing="0" width="100%">
-                      <thread>
+        <div class="col-md-12">
+          <div class="box box-solid">
+             <div class="box-body">
+                  <table id="users_list" class="cell-border hover" cellspacing="0" width="100%">
+                      <thead>
                           <tr>
                               <th>Nome</th>
                               <th>Email</th>
+                              <th>Telefone</th>
                               <th></th>
                               <th></th>
                           </tr>
-                      </thread>
+                      </thead>
                       <tbody>
                         {% for user in users %}
                             <tr>
                                 <td>{{ user.nome }}</td>
                                 <td>{{ user.email }}</td>
+                                <td>{{ user.fone1 }}</td>
                                 <td>
-{#                                    <button type="button" class="btn btn-success btn-xs center-block">#}
-{#                                        Atualizar Dados#}
-{#                                    </button>#}
-                                    <a class="btn btn-success btn-xs center-block" href="{% url 'account_edit' user.pk %}">Atualizar Cadastro</a>
+                                    <a class="btn btn-success btn-xs center-block"
+                                       href="{% url 'account_edit' user.pk %}">Atualizar Cadastro</a>
                                 </td>
                                 <td>
-{#                                    <button type="button" class="btn btn-sm btn-info btn-xs center-block">#}
-{#                                        Extrato financeiro#}
-{#                                    </button>#}
                                     <a class="btn btn-info btn-xs center-block" href="">Extrato financeiro</a>
                                 </td>
                             </tr>
                         {% endfor %}
                       </tbody>
                   </table>
-              </div>
+             </div>
           </div>
+        </div>
       </div>
   </section>
-  <!-- /.content -->
 </div>
-<!-- /.content-wrapper -->
 {% endblock content %}
 
 {% block javascript %}
    <!-- DataTables -->
-    <script src="{% static 'datatables/js/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
     <script>
         $(document).ready(function() {
             $('#users_list').DataTable( {
                 scrollX: true,
                 retrieve: true,
-                searching: false,
+                searching: true,
                 info: true,
                 paging: true,
                 lengthChange: false,
                 columnDefs: [
-                    { orderable: true, className: 'reorder', targets: [0, 1, ] },
+                    { orderable: true, className: 'reorder', targets: [0, 1, 2, ] },
                     { orderable: false, targets: '_all' }
                 ],
                 language: {
