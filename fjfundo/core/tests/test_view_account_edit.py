@@ -43,7 +43,7 @@ class AccountEditTest(TestCase):
     def test_has_field(self):
         """ Form must have 14 fields"""
         form = self.response.context['form']
-        self.assertSequenceEqual(['email', 'turma', 'cpf', 'identidade', 'nome',
+        self.assertSequenceEqual(['email', 'cpf', 'identidade', 'nome',
                                   'logradouro', 'numero', 'complemento', 'bairro',
                                   'cidade', 'uf', 'cep', 'fone1', 'fone2'],
                                  list(form.fields))

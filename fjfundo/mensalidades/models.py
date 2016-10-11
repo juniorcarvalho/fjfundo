@@ -8,21 +8,12 @@ class Fundo(models.Model):
     data_final = models.DateField(null=True)
     cnpj = models.CharField(max_length=18, null=True)
 
-    # objetcs = FundoManager()
-
     class Meta:
         verbose_name = 'fundo'
         verbose_name_plural = 'fundos'
 
     def __str__(self):
         return self.nome_fundo
-
-
-# class FundoManager(models.Manager):
-#     def import_fundo(self, data):
-#         fundo = self.model(**data)
-#         fundo.save(using=self._db)
-#         return fundo
 
 
 class Turma(models.Model):

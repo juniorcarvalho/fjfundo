@@ -34,8 +34,19 @@ def dashboard(request):
 
 @login_required
 def account_edit(request, id):
-    context = {}
     user = get_object_or_404(MyUser, pk=id)
+
+    # proteções
+    if request.user.nivel == 0:
+        if request.user.id != user.id:
+            return render(request, 'dashboard.html')
+    elif request.user.nivel == 1:
+        if user.turma.id != request.user.turma.id:
+             users = MyUser.objects.filter(turma=request.user.turma).order_by('nome')
+             return render(request, 'account_list.html', {'users': users})
+
+    context = {}
+
     if request.method == 'POST':
         form = EditAccountForm(request.POST, instance=user)
         if form.is_valid():
@@ -50,5 +61,8 @@ def account_edit(request, id):
 
 @login_required
 def account_list(request):
-    users = MyUser.objects.filter(turma=request.user.turma).order_by('nome')
+    if request.user.nivel == 3:
+        users = MyUser.objects.all().order_by('turma', 'nome')
+    else:
+        users = MyUser.objects.filter(turma=request.user.turma).order_by('nome')
     return render(request, 'account_list.html', {'users': users})

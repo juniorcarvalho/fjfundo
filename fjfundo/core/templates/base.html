@@ -15,6 +15,8 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{% static 'dist/css/AdminLTE.min.css' %}">
     <link rel="stylesheet" href="{% static 'dist/css/skins/skin-blue.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fjfundo.css' %}">
+
     {% block css %}
     {% endblock css %}
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -42,6 +44,7 @@
       <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
+      <span class="turma">{{ user.turma }}</span>
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
@@ -120,6 +123,24 @@
                 </a>
             </li>
         {% endif %}
+
+          {% if user.nivel == 3 %}
+            <li class={% if request.resolver_match.url_name == "fundo_list" %}active{% endif %}>
+                <a href="{% url 'fundo_list' %}">
+                    <i class="glyphicon glyphicon-th"></i>
+                    <span>Fundos</span></a>
+                </a>
+            </li>
+        {% endif %}
+        {% if user.nivel == 3 %}
+            <li class={% if request.resolver_match.url_name == "turma_list" %}active{% endif %}>
+                <a href="{% url 'turma_list' %}">
+                    <i class="fa fa-fw fa-users"></i>
+                    <span>Turmas</span></a>
+                </a>
+            </li>
+        {% endif %}
+
       </ul>
       <!-- /.sidebar-menu -->
     </section>

@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static from staticfiles %}
+
+{% block css %}
+    <!-- DataTables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.css">
+    <style>
+        th, table.dataTable tbody td {
+            vertical-align: middle;
+        }
+    </style>
+{% endblock css %}
+
+{% block content %}
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      Fundos
+{#      <small>Associados</small>#}
+    </h1>
+    <ol class="breadcrumb">
+      <li><a href="{% url 'dashboard' %}"><i class="glyphicon glyphicon-home"></i>Menu Principal</a></li>
+      <li class="active">Fundos</li>
+    </ol>
+  </section>
+
+  <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box box-solid">
+             <div class="box-body">
+                  <table id="fundo_list" class="cell-border hover" cellspacing="0" width="100%">
+                      <thead>
+                          <tr>
+                              <th>CNPJ</th>
+                              <th>Fundo</th>
+                              <th>Data Inicial</th>
+                              <th>Data Final</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                        {% for fundo in fundos %}
+                            <tr>
+                                <td>{{ fundo.cnpj }}</td>
+                                <td>{{ fundo.nome_fundo }}</td>
+                                <td>{{ fundo.data_inicial }}</td>
+                                <td>{{ fundo.data_final }}</td>
+                            </tr>
+                        {% endfor %}
+                      </tbody>
+                  </table>
+             </div>
+          </div>
+        </div>
+      </div>
+  </section>
+</div>
+{% endblock content %}
+
+{% block javascript %}
+   <!-- DataTables -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#fundo_list').DataTable( {
+                scrollX: true,
+                retrieve: true,
+                searching: true,
+                info: true,
+                paging: true,
+                lengthChange: false,
+                columnDefs: [
+                    { orderable: true, className: 'reorder', targets: [0, 1, 2, 3, ] },
+                    { orderable: false, targets: '_all' }
+                ],
+                language: {
+                    sEmptyTable: "Nenhum registro encontrado",
+                    sInfo: "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                    sInfoEmpty: "Mostrando 0 até 0 de 0 registros",
+                    sInfoFiltered: "(Filtrados de _MAX_ registros)",
+                    sInfoPostFix: "",
+                    sInfoThousands: ".",
+                    sLengthMenu: "_MENU_ resultados por página",
+                    sLoadingRecords: "Carregando...",
+                    sProcessing: "Processando...",
+                    sZeroRecords: "Nenhum registro encontrado",
+                    sSearch: "Pesquisar",
+                    oPaginate: {
+                        sNext: "Próximo",
+                        sPrevious: "Anterior",
+                        sFirst: "Primeiro",
+                        sLast: "Último"
+                    },
+                    oAria: {
+                        sSortAscending: ": Ordenar colunas de forma ascendente",
+                        sSortDescending: ": Ordenar colunas de forma descendente"
+                    }
+                }
+            } );
+        } );
+    </script>
+{% endblock javascript %}

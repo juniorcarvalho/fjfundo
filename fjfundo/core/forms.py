@@ -34,6 +34,6 @@ class EditAccountForm(forms.ModelForm):
 
     class Meta:
         model = MyUser
-        fields = ['email', 'turma', 'cpf', 'identidade', 'nome',
+        fields = ['email', 'cpf', 'identidade', 'nome',
                   'logradouro', 'numero', 'complemento', 'bairro',
                   'cidade', 'uf', 'cep', 'fone1', 'fone2']
