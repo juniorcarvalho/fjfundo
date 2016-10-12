@@ -15,6 +15,7 @@ def fundo_list(request):
     else:
         return render(request, 'dashboard.html')
 
+
 @login_required
 def turma_list(request):
     if request.user.nivel == 3:
@@ -25,10 +26,7 @@ def turma_list(request):
 
 
 @login_required
-class turma_select(View):
-
-    def get(self, request, *args, **Kargs):
-        if request.method == 'GET':
-            form = TrocaTurmaForm()
-            return HttpResponse(form)
-
+def turma_select(request):
+    if request.method == 'GET':
+        form = TrocaTurmaForm()
+        return HttpResponse(form)
