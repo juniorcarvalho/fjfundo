@@ -17,3 +17,26 @@
     font-weight: 300;
     overflow: hidden;
 }
+
+.div-ajax-carregamento-pagina {
+    position: absolute;
+    left: 0px;
+    top:0px;
+    margin:0px;
+    width: 100%;
+    height: 100%;
+    display:block;
+    z-index: 9999997;
+    opacity: 0.65;
+    -moz-opacity: 0.65;
+    filter: alpha(opacity = 65);
+    background: black;
+    background-image: url("./img/ajax-loader.gif");
+    background-repeat: no-repeat;
+    background-position:50% 50%;
+    text-align: center;
+    overflow: hidden;
+    font-weight: bold;
+    color: white;
+    padding-top: 25%;
+}

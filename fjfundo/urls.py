@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from fjfundo.core.views import dashboard, inicio, account_edit, account_list
-from fjfundo.mensalidades.views import fundo_list, turma_list
+from fjfundo.mensalidades.views import fundo_list, turma_list, turma_select
 from django.contrib.auth.views import logout
 from rest_framework.authtoken.views import obtain_auth_token
 from fjfundo.api.urls import router
@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^account_list/', account_list, name='account_list'),
     url(r'^fundo_list/', fundo_list, name='fundo_list'),
     url(r'^turma_list/', turma_list, name='turma_list'),
+    url(r'^turma_select/', turma_select, name='turma_select'),
     url(r'^api/token/', obtain_auth_token, name='api-token'),
     url(r'^api/', include(router.urls)),
 ]

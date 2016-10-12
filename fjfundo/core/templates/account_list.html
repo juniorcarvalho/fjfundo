@@ -12,6 +12,11 @@
     </style>
 {% endblock css %}
 
+{% block bodyStart %}
+    <div class="div-ajax-carregamento-pagina"></div>
+    <div></div>
+{% endblock bodyStart %}
+
 {% block content %}
 <div class="content-wrapper">
   <section class="content-header">
@@ -66,6 +71,11 @@
 {% endblock content %}
 
 {% block javascript %}
+    <script>
+        $(document).ready(function(){
+        $('.div-ajax-carregamento-pagina').fadeOut('fast');
+        });
+    </script>
    <!-- DataTables -->
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
     <script>

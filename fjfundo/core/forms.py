@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate
 from fjfundo.core.models import MyUser
 
 
+
 class LoginForm(forms.ModelForm):
     email = forms.EmailField(required=True)
     password = forms.CharField(label='Senha', widget=forms.PasswordInput, required=True)
@@ -37,3 +38,5 @@ class EditAccountForm(forms.ModelForm):
         fields = ['email', 'cpf', 'identidade', 'nome',
                   'logradouro', 'numero', 'complemento', 'bairro',
                   'cidade', 'uf', 'cep', 'fone1', 'fone2']
+
+

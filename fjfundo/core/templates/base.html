@@ -27,6 +27,8 @@
     <![endif]-->
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+{% block bodyStart %}
+{% endblock bodyStart %}
 <div class="wrapper">
   <!-- Main Header -->
   <header class="main-header">
@@ -44,7 +46,21 @@
       <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
         <span class="sr-only">Toggle navigation</span>
       </a>
-      <span class="turma">{{ user.turma }}</span>
+
+      {% if user.nivel == 3 %}
+        {% if request.resolver_match.url_name == 'dashboard' %}
+          <a class="turma" href="#trocaTurma{{ user.id }}" data-toggle="modal">{{ user.turma }}</a>
+        {% else %}
+          <span class="turma">
+            {{ user.turma }}
+          </span>
+        {% endif %}
+      {% else %}
+        <span class="turma">
+          {{ user.turma }}
+        </span>
+      {% endif %}
+
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
@@ -65,7 +81,6 @@
                   {{ user.first_name }} <br/>
                   {{ user.email }}
                 </p>
-
               </li>
               <!-- Menu Body -->
               <!-- Menu Footer-->
@@ -80,6 +95,31 @@
       </div>
     </nav>
   </header>
+
+  <div class="modal fade" id="trocaTurma{{ user.pk }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Selecione a turma</h4>
+        </div>
+        <form action="{% url 'turma_select' %} " method="POST">
+            <div class="modal-body">
+                {% csrf_token %}
+                {{ form.turmas.label }}
+                {{ form.turmas }}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <input type="submit" class="btn btn-success" value="Trocar turma" />
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->

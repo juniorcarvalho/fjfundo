@@ -42,8 +42,7 @@ def account_edit(request, id):
             return render(request, 'dashboard.html')
     elif request.user.nivel == 1:
         if user.turma.id != request.user.turma.id:
-             users = MyUser.objects.filter(turma=request.user.turma).order_by('nome')
-             return render(request, 'account_list.html', {'users': users})
+            return account_list(request)
 
     context = {}
 
