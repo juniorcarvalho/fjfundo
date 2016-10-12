@@ -28,9 +28,6 @@ class Turma(models.Model):
         verbose_name = 'turma'
         verbose_name_plural = 'turmas'
 
-    def listaTurmas(self):
-        return Turma.objects.all().order_by('nome_turma')
-
     def __str__(self):
         return self.nome_turma
 

@@ -25,7 +25,7 @@ class AccountEditTest(TestCase):
     def test_html(self):
         """ Html must contain input tags"""
         self.assertContains(self.response, '<form')
-        self.assertContains(self.response, '<input', 14)
+        self.assertContains(self.response, '<input', 16)
         self.assertContains(self.response, 'type="email"')
         self.assertContains(self.response, 'type="text"', 12)
         self.assertContains(self.response, 'type="submit"')

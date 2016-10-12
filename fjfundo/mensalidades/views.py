@@ -1,5 +1,8 @@
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.shortcuts import render
+from django.views.generic import View
+
 from fjfundo.mensalidades.models import Fundo, Turma
 from fjfundo.mensalidades.forms import TrocaTurmaForm
 
@@ -20,6 +23,12 @@ def turma_list(request):
     else:
         return render(request, 'dashboard.html')
 
+
 @login_required
-def turma_select(request):
-    form = TrocaTurmaForm()
+class turma_select(View):
+
+    def get(self, request, *args, **Kargs):
+        if request.method == 'GET':
+            form = TrocaTurmaForm()
+            return HttpResponse(form)
+
