@@ -27,6 +27,6 @@ def turma_list(request):
 
 @login_required
 def turma_select(request):
-    if request.method == 'GET':
+    if request.method != 'POST':
         form = TrocaTurmaForm()
         return HttpResponse(form)

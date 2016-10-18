@@ -49,7 +49,7 @@
 
       {% if user.nivel == 3 %}
         {% if request.resolver_match.url_name == 'dashboard' %}
-          <a class="turma" href="#trocaTurma{{ user.id }}" data-toggle="modal">{{ user.turma }}</a>
+          <a class="turma" href="#trocaTurma{{ user.pk }}" data-toggle="modal">{{ user.turma }}</a>
         {% else %}
           <span class="turma">
             {{ user.turma }}
