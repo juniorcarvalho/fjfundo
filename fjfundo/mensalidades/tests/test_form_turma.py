@@ -29,5 +29,5 @@ class TrocaTurmaFormTest(TestCase):
 
     def test_as_p(self):
         str_form_as_p = self.form.as_p()
-        str_as_p= '<p><label for="id_turmas">Turmas:</label> <select id="id_turmas" name="turmas">\n<option value="1">nome da turma</option>\n</select></p>'
+        str_as_p= '<p><label for="id_turmas">Turmas:</label> <select class="form-control" id="id_turmas" name="turmas">\n<option value="1">nome da turma</option>\n</select></p>'
         self.assertEqual(str_as_p, str_form_as_p)
