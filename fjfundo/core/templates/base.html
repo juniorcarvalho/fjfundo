@@ -49,15 +49,16 @@
 
       {% if user.nivel == 3 %}
         {% if request.resolver_match.url_name == 'dashboard' %}
-          <a class="turma" id="botao-troca-turma" href="#trocaTurma{{ user.pk }}" data-toggle="modal">{{ user.turma }}</a>
+          <a class="turma" id="botao-troca-turma" href="#trocaTurma{{ user.pk }}" data-toggle="modal">{{ turma.nome_turma }}
+          </a>
         {% else %}
           <span class="turma">
-            {{ user.turma }}
+            {{ turma.nome_turma }}
           </span>
         {% endif %}
       {% else %}
         <span class="turma">
-          {{ user.turma }}
+          {{ turma.nome_turma }}
         </span>
       {% endif %}
 

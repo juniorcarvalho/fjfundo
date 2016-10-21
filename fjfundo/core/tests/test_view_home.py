@@ -1,10 +1,11 @@
 from django.test import TestCase
 from fjfundo.core.forms import LoginForm
+from django.shortcuts import resolve_url as r
 
 
 class HomeTest(TestCase):
     def setUp(self):
-        self.response = self.client.get('/')
+        self.response = self.client.get(r('inicio'))
 
     def test_get(self):
         """ GET/ must return status code 200"""

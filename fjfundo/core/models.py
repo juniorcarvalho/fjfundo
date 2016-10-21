@@ -54,3 +54,12 @@ class MyUser(PermissionsMixin, AbstractBaseUser):
     class Meta:
         verbose_name = 'usuário'
         verbose_name_plural = 'usuários'
+
+
+    @staticmethod
+    def getTurma(user):
+        myuser = MyUser.objects.get(email=user)
+        if myuser.nivel == 3:
+            return Turma.objects.order_by('nome_turma')[0]
+        else:
+            return Turma.objects.get(pk=myuser.turma_id)

@@ -1,11 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, render_to_response, get_object_or_404
+from django.shortcuts import render, render_to_response, get_object_or_404, resolve_url as r
 from django.contrib.auth import authenticate, login
-from django.shortcuts import resolve_url as r
 from django.template import RequestContext
-from fjfundo.core.forms import LoginForm
-from fjfundo.core.forms import EditAccountForm
+from fjfundo.core.forms import LoginForm, EditAccountForm
 from fjfundo.core.models import MyUser
 
 
@@ -29,7 +27,8 @@ def inicio(request):
 
 @login_required
 def dashboard(request):
-    return render(request, 'dashboard.html')
+    turma = MyUser.getTurma(request.user)
+    return render(request, 'dashboard.html', {'turma': turma})
 
 
 @login_required
@@ -37,15 +36,19 @@ def account_edit(request, id):
     user = get_object_or_404(MyUser, pk=id)
 
     # proteções
+    # usuário nivel 0, so pode editar seu próprio cadastro
     if request.user.nivel == 0:
         if request.user.id != user.id:
-            return render(request, 'dashboard.html')
+            return HttpResponseRedirect(r('dashboard'))
+    # usuário nivel 1, so pode editar cadastros da propria turma
     elif request.user.nivel == 1:
         if user.turma.id != request.user.turma.id:
-            return account_list(request)
+            return HttpResponseRedirect(r('account_list'))
+
+    turma = MyUser.getTurma(request.user)
 
     context = {}
-
+    context['turma'] = turma
     if request.method == 'POST':
         form = EditAccountForm(request.POST, instance=user)
         if form.is_valid():
@@ -60,8 +63,9 @@ def account_edit(request, id):
 
 @login_required
 def account_list(request):
-    if request.user.nivel == 3:
-        users = MyUser.objects.all().order_by('turma', 'nome')
-    else:
-        users = MyUser.objects.filter(turma=request.user.turma).order_by('nome')
-    return render(request, 'account_list.html', {'users': users})
+    turma = MyUser.getTurma(request.user)
+    context = {}
+    context['turma'] = turma
+    users = MyUser.objects.filter(turma=turma).order_by('nome')
+    context['users'] = users
+    return render(request, 'account_list.html', context)

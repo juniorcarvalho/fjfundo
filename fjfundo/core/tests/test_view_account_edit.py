@@ -1,12 +1,32 @@
 from django.test import TestCase
 from fjfundo.core.models import MyUser
 from fjfundo.core.forms import EditAccountForm
+from fjfundo.mensalidades.models import Turma, Fundo
 from django.shortcuts import resolve_url as r
+from datetime import date
 
 
 class AccountEditTest(TestCase):
     def setUp(self):
-        self.user = MyUser.objects.create_user(email='user@email.com', password='senha@123')
+
+        self.fundo = Fundo.objects.create(
+            nome_fundo='fundo de formatura',
+            data_inicial=date(2016, 1, 1),
+            data_final=date(2016, 12, 31),
+            cnpj='00000000000000'
+        )
+
+        self.turma = Turma.objects.create(
+            fundo=self.fundo,
+            nome_turma='nome da turma',
+            dia_venc='10',
+            data_formatura=date(2016, 12, 31),
+            valor_multa=2.0,
+            valor_juros=6.0
+        )
+
+        self.user = MyUser.objects.create_user(email='user@email.com', password='senha@123', nivel=0,
+                                               turma=self.turma)
         self.client.login(email='user@email.com', password='senha@123')
         self.response = self.client.get(r('account_edit', id=self.user.pk))
 
