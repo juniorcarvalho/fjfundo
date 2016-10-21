@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response, get_object_or_404, resolve_url as r
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.template import RequestContext
 from fjfundo.core.forms import LoginForm, EditAccountForm
 from fjfundo.core.models import MyUser
@@ -17,6 +17,7 @@ def inicio(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
+                    request.session['turma_id'] = MyUser.getTurmaId(user)
                     return HttpResponseRedirect(r('dashboard'))
     else:
         form = LoginForm()
@@ -25,9 +26,17 @@ def inicio(request):
     }, context_instance=RequestContext(request))
 
 
+def fim(request):
+    logout(request)
+    try:
+        del request.session['turma_id']
+    except KeyError:
+        pass
+    return HttpResponseRedirect(r('inicio'))
+
 @login_required
 def dashboard(request):
-    turma = MyUser.getTurma(request.user)
+    turma = MyUser.getTurma(request.user, request)
     return render(request, 'dashboard.html', {'turma': turma})
 
 
@@ -45,7 +54,7 @@ def account_edit(request, id):
         if user.turma.id != request.user.turma.id:
             return HttpResponseRedirect(r('account_list'))
 
-    turma = MyUser.getTurma(request.user)
+    turma = MyUser.getTurma(request.user, request)
 
     context = {}
     context['turma'] = turma
@@ -63,7 +72,7 @@ def account_edit(request, id):
 
 @login_required
 def account_list(request):
-    turma = MyUser.getTurma(request.user)
+    turma = MyUser.getTurma(request.user, request)
     context = {}
     context['turma'] = turma
     users = MyUser.objects.filter(turma=turma).order_by('nome')
