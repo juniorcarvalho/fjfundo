@@ -3,6 +3,7 @@
 .idea
 .gloria
 *.sqlite3
+*.sqlite3-journal
 *.pyc
 __pycache__
 TABELAS E CHAVES.sql

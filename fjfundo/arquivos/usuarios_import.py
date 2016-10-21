@@ -17,8 +17,8 @@ def importar(self):
                 id_turma = int(row[1])
                 turma = Turma.objects.filter(pk=id_turma)
                 email=row[2]
-                if len(email)==0:
-                    email = 'Email não informado.'
+                # if len(email) == 0:
+                #     email = 'Email não informado.'
 
                 if turma.exists():
                     associadoSearch = MyUser.objects.filter(pk=id)

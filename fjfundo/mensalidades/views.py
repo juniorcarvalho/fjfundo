@@ -1,7 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
-from django.shortcuts import render
-from fjfundo.mensalidades.models import Fundo, Turma
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, resolve_url as r
+from fjfundo.mensalidades.models import Fundo, Turma, Financeiro
 from fjfundo.mensalidades.forms import TrocaTurmaForm
 from fjfundo.core.models import MyUser
 
@@ -36,3 +37,30 @@ def turma_select(request):
     if request.method == 'GET':
         form = TrocaTurmaForm()
         return HttpResponse(form)
+
+
+@login_required
+def extrato(request, id_usr):
+
+    user = get_object_or_404(MyUser, pk=id_usr)
+
+    # proteções
+    # usuário nivel 0, so pode ver seu próprio extrato
+    if request.user.nivel == 0:
+        if request.user.id != user.id:
+            return HttpResponseRedirect(r('dashboard'))
+    # usuário nivel 1, so pode ver extratos da propria turma
+    elif request.user.nivel == 1:
+        if user.turma.id != request.user.turma.id:
+            return HttpResponseRedirect(r('account_list'))
+
+
+    turma = MyUser.getTurma(request.user, request)
+
+    context = {}
+    context['turma'] = turma
+
+    financeiro = Financeiro.objects.filter(usuario=user).order_by('-data_vencimento')
+    context['dados'] = financeiro
+
+    return render(request, 'extrato.html', context)

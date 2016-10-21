@@ -34,22 +34,23 @@ class Turma(models.Model):
 
 class Financeiro(models.Model):
     usuario = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='Associado')
-    nrodoc = models.CharField(max_length=10, null=True)
-    parcela = models.IntegerField(null=True)
-    valor = models.FloatField(null=True)
-    valor_extra = models.FloatField(null=True)
-    valor_acresdesc = models.FloatField(null=True)
-    valor_liquido = models.FloatField(null=True)
-    valor_jurdescbco = models.FloatField(null=True)
-    valor_despbco = models.FloatField(null=True)
-    data_vencimento = models.DateField(null=True)
-    data_pagamento = models.DateField(null=True)
-    data_proc = models.DateField(null=True)
+    nrodoc = models.CharField(max_length=10, null=True, blank=True)
+    parcela = models.CharField(max_length=10, null=True, blank=True)
+    valor = models.FloatField(null=True, blank=True)
+    valor_extra = models.FloatField(null=True, blank=True)
+    valor_acresdesc = models.FloatField(null=True, blank=True)
+    valor_liquido = models.FloatField(null=True, blank=True)
+    valor_jurdescbco = models.FloatField(null=True, blank=True)
+    valor_despbco = models.FloatField(null=True, blank=True)
+    data_vencimento = models.DateField(null=True, blank=True)
+    data_pagamento = models.DateField(null=True, blank=True)
+    data_proc = models.DateField(null=True, blank=True)
+    historico = models.CharField(max_length=60, null=True, blank=True)
 
     class Meta:
-        verbose_name = 'Financeiro'
-        verbose_name_plural = 'Financeiro'
+        verbose_name = 'financeiro'
+        verbose_name_plural = 'financeiro'
 
-    # def __str__(self):
-    #     return self.historico
+    def __str__(self):
+        return self.historico
 
