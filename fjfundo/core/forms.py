@@ -1,11 +1,11 @@
 from django import forms
 from django.contrib.auth import authenticate
-from fjfundo.core.models import MyUser
-
+from fjfundo.core.models import MyUser, PasswordReset
+from fjfundo.core.utils import generate_hash_key
 
 
 class LoginForm(forms.ModelForm):
-    email = forms.EmailField(required=True)
+    email = forms.EmailField(label='E-mail', required=True)
     password = forms.CharField(label='Senha', widget=forms.PasswordInput, required=True)
 
     class Meta:
@@ -39,4 +39,25 @@ class EditAccountForm(forms.ModelForm):
                   'logradouro', 'numero', 'complemento', 'bairro',
                   'cidade', 'uf', 'cep', 'fone1', 'fone2']
 
+
+class PasswordResetForm(forms.Form):
+
+    email = forms.EmailField(label='E-mail')
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if MyUser.objects.filter(email=email).exists():
+            return email
+        raise forms.ValidationError(
+            'Nenhum usuário encontrado com este e-mail.'
+        )
+
+    def save(self):
+        email = self.cleaned_data['email']
+        user = MyUser.objects.get(email=email)
+        key = generate_hash_key(user.email)
+        reset = PasswordReset(key=key, user=user)
+        reset.save()
+
+        # envio de email...
 

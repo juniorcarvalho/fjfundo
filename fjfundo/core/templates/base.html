@@ -30,174 +30,175 @@
 {% block bodyStart %}
 {% endblock bodyStart %}
 <div class="wrapper">
-  <!-- Main Header -->
-  <header class="main-header">
-    <!-- Logo -->
-    <a href="{% url 'dashboard' %}" class="logo">
-      <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>G</b></span>
-      <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Glória</b></span>
-    </a>
+    <!-- Main Header -->
+    <header class="main-header">
+        <!-- Logo -->
+        <a href="{% url 'dashboard' %}" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>G</b></span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>Glória</b></span>
+        </a>
 
-    <!-- Header Navbar -->
-    <nav class="navbar navbar-static-top" role="navigation">
-      <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-        <span class="sr-only">Toggle navigation</span>
-      </a>
+        <!-- Header Navbar -->
+        <nav class="navbar navbar-static-top" role="navigation">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
 
-      {% if user.nivel == 3 %}
-        {% if request.resolver_match.url_name == 'dashboard' %}
-          <a class="turma" id="botao-troca-turma" href="#trocaTurma{{ user.pk }}" data-toggle="modal">{{ turma.nome_turma }}
-          </a>
-        {% else %}
-          <span class="turma">
+            {% if user.nivel == 3 %}
+                {% if request.resolver_match.url_name == 'dashboard' %}
+                    <a class="turma" id="botao-troca-turma" href="#trocaTurma{{ user.pk }}"
+                       data-toggle="modal">{{ turma.nome_turma }}
+                    </a>
+                {% else %}
+                    <span class="turma">
             {{ turma.nome_turma }}
           </span>
-        {% endif %}
-      {% else %}
-        <span class="turma">
+                {% endif %}
+            {% else %}
+                <span class="turma">
           {{ turma.nome_turma }}
         </span>
-      {% endif %}
+            {% endif %}
 
-      <!-- Navbar Right Menu -->
-      <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
-          <!-- User Account Menu -->
-          <li class="dropdown user user-menu">
-            <!-- Menu Toggle Button -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <!-- The user image in the navbar-->
-              <img src="{% static 'img/users.jpeg' %}" class="user-image" alt="User Image">
-              <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">{{ user }}</span>
-            </a>
-            <ul class="dropdown-menu">
-              <!-- The user image in the menu -->
-              <li class="user-header">
-                <img src="{% static 'img/users.jpeg' %}" class="img-circle" alt="User Image">
-                <p>
-                  {{ user.first_name }} <br/>
-                  {{ user.email }}
-                </p>
-              </li>
-              <!-- Menu Body -->
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-right">
-                  <a href="{% url 'logout' %}" class="btn btn-default btn-flat">Sair</a>
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- User Account Menu -->
+                    <li class="dropdown user user-menu">
+                        <!-- Menu Toggle Button -->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <!-- The user image in the navbar-->
+                            <img src="{% static 'img/users.jpeg' %}" class="user-image" alt="User Image">
+                            <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                            <span class="hidden-xs">{{ user }}</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <!-- The user image in the menu -->
+                            <li class="user-header">
+                                <img src="{% static 'img/users.jpeg' %}" class="img-circle" alt="User Image">
+                                <p>
+                                    {{ user.first_name }} <br/>
+                                    {{ user.email }}
+                                </p>
+                            </li>
+                            <!-- Menu Body -->
+                            <!-- Menu Footer-->
+                            <li class="user-footer">
+                                <div class="pull-right">
+                                    <a href="{% url 'logout' %}" class="btn btn-default btn-flat">Sair</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="modal fade" id="trocaTurma{{ user.pk }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Selecione a turma</h4>
                 </div>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </header>
-
-  <div class="modal fade" id="trocaTurma{{ user.pk }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-          </button>
-          <h4 class="modal-title" id="myModalLabel">Selecione a turma</h4>
+                <form action="{% url 'turma_select' %} " method="POST">
+                    <div class="modal-body">
+                        {% csrf_token %}
+                        <div id="lista-turma"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                        <input type="submit" class="btn btn-success" value="Trocar turma"/>
+                    </div>
+                </form>
+            </div>
         </div>
-        <form action="{% url 'turma_select' %} " method="POST">
-            <div class="modal-body">
-                {% csrf_token %}
-                <div id="lista-turma"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <input type="submit" class="btn btn-success" value="Trocar turma" />
-            </div>
-        </form>
-      </div>
     </div>
-  </div>
 
-  <!-- Left side column. contains the logo and sidebar -->
-  <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
-    <section class="sidebar">
-      <!-- Sidebar Menu -->
-      <ul class="sidebar-menu">
-        <li class="header">Menu Principal</li>
-        <li class={% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}>
-          <a href="{% url 'dashboard' %}"><i class="glyphicon glyphicon-home"></i><span>Início</span></a>
-        </li>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- Sidebar Menu -->
+            <ul class="sidebar-menu">
+                <li class="header">Menu Principal</li>
+                <li class={% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}>
+                    <a href="{% url 'dashboard' %}"><i class="glyphicon glyphicon-home"></i><span>Início</span></a>
+                </li>
 
-        <li class="treeview">
-        	<a href="#">
-            	<i class="glyphicon glyphicon-usd"></i>
-                <span>Financeiro</span>
-                <i class="fa fa-angle-left pull-right"></i>
-            </a>
-            <ul class="treeview-menu">
-            	<li class="treeview">
-            	   <a href=""><i class="glyphicon glyphicon glyphicon-th-list"></i>
-            	   <span>Extrato</span></a>
-            	</li>
-            	<li class="treeview">
-            	   <a href=""><i class="glyphicon glyphicon glyphicon-barcode"></i>
-            	   <span>2a. Via Boleto </span></a>
-            	</li>
+                <li class="treeview">
+                    <a href="#">
+                        <i class="glyphicon glyphicon-usd"></i>
+                        <span>Financeiro</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="treeview">
+                            <a href=""><i class="glyphicon glyphicon glyphicon-th-list"></i>
+                                <span>Extrato</span></a>
+                        </li>
+                        <li class="treeview">
+                            <a href=""><i class="glyphicon glyphicon glyphicon-barcode"></i>
+                                <span>2a. Via Boleto </span></a>
+                        </li>
+                    </ul>
+                </li>
+                {% if user.nivel == 0 %}
+                    <li class={% if request.resolver_match.url_name == "account_edit" %}active{% endif %}>
+                        <a href="{% url 'account_edit' user.pk %}">
+                            <i class="glyphicon glyphicon-user"></i>
+                            <span>Meus dados</span></a>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class={% if request.resolver_match.url_name == "account_list" %}active{% endif %}>
+                        <a href="{% url 'account_list' %}">
+                            <i class="glyphicon glyphicon-user"></i>
+                            <span>Associados</span></a>
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% if user.nivel == 3 %}
+                    <li class={% if request.resolver_match.url_name == "fundo_list" %}active{% endif %}>
+                        <a href="{% url 'fundo_list' %}">
+                            <i class="glyphicon glyphicon-th"></i>
+                            <span>Fundos</span></a>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if user.nivel == 3 %}
+                    <li class={% if request.resolver_match.url_name == "turma_list" %}active{% endif %}>
+                        <a href="{% url 'turma_list' %}">
+                            <i class="fa fa-fw fa-users"></i>
+                            <span>Turmas</span></a>
+                        </a>
+                    </li>
+                {% endif %}
+
             </ul>
-        </li>
-        {% if user.nivel == 0 %}
-            <li class={% if request.resolver_match.url_name == "account_edit" %}active{% endif %}>
-                <a href="{% url 'account_edit' user.pk %}">
-                    <i class="glyphicon glyphicon-user"></i>
-                    <span>Meus dados</span></a>
-                </a>
-            </li>
-        {% else %}
-            <li class={% if request.resolver_match.url_name == "account_list" %}active{% endif %}>
-                <a href="{% url 'account_list' %}">
-                    <i class="glyphicon glyphicon-user"></i>
-                    <span>Associados</span></a>
-                </a>
-            </li>
-        {% endif %}
+            <!-- /.sidebar-menu -->
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+    {% block content %}
+    {% endblock content %}
 
-          {% if user.nivel == 3 %}
-            <li class={% if request.resolver_match.url_name == "fundo_list" %}active{% endif %}>
-                <a href="{% url 'fundo_list' %}">
-                    <i class="glyphicon glyphicon-th"></i>
-                    <span>Fundos</span></a>
-                </a>
-            </li>
-        {% endif %}
-        {% if user.nivel == 3 %}
-            <li class={% if request.resolver_match.url_name == "turma_list" %}active{% endif %}>
-                <a href="{% url 'turma_list' %}">
-                    <i class="fa fa-fw fa-users"></i>
-                    <span>Turmas</span></a>
-                </a>
-            </li>
-        {% endif %}
-
-      </ul>
-      <!-- /.sidebar-menu -->
-    </section>
-    <!-- /.sidebar -->
-  </aside>
-  {% block content %}
-  {% endblock content %}
-
-  <!-- Main Footer -->
-  <footer class="main-footer">
-    <!-- To the right -->
-    <div class="pull-right hidden-xs">
-      v1.0
-    </div>
-    <!-- Default to the left -->
-    <strong>Copyright &copy; 2016 <a href="#" >ConBits</a>.</strong>
-  </footer>
+    <!-- Main Footer -->
+    <footer class="main-footer">
+        <!-- To the right -->
+        <div class="pull-right hidden-xs">
+            v1.0
+        </div>
+        <!-- Default to the left -->
+        <strong>Copyright &copy; 2016 <a href="#">ConBits</a>.</strong>
+    </footer>
 </div>
 <!-- ./wrapper -->
 

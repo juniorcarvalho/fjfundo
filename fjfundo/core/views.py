@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response, get_object_or_404, resolve_url as r
 from django.contrib.auth import authenticate, login, logout
 from django.template import RequestContext
-from fjfundo.core.forms import LoginForm, EditAccountForm
+from fjfundo.core.forms import LoginForm, EditAccountForm, PasswordResetForm
 from fjfundo.core.models import MyUser
 
 
@@ -78,3 +78,17 @@ def account_list(request):
     users = MyUser.objects.filter(turma=turma).order_by('nome')
     context['users'] = users
     return render(request, 'account_list.html', context)
+
+
+def password_reset(request):
+    context = {}
+    form = PasswordResetForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        context['success'] = True
+    context['form'] = form
+    return render(request, 'password_reset.html', context)
+
+
+# def password_reset_confirm(request, key):
+#     pass

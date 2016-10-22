@@ -4,7 +4,7 @@
 $(document).ready(function () {
     $("#botao-troca-turma").on("click", function () {
         $.ajax({
-            'url': '/turma_select/',
+            'url': '/turma-seleciona/',
             'success': function (data) {
                 $("#lista-turma").html(data);
             }
