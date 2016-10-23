@@ -1,1 +1,7 @@
-<h1>Erro inesperado</h1>
+{% extends 'login_base.html' %}
+{% load static from staticfiles %}
+{% load widget_tweaks %}
+{% block content %}
+    <p><h1>Erro inesperado. (500)</h1></p>
+    <a href="{% url 'inicio' %}" class="text-center">Voltar</a>
+{% endblock %}

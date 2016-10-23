@@ -1,1 +1,8 @@
-<h1>Acesso proibido</h1>
+{% extends 'login_base.html' %}
+{% load static from staticfiles %}
+{% load widget_tweaks %}
+{% block content %}
+    <p><h1>Acesso inválido. (403)</h1></p>
+    <a href="{% url 'inicio' %}" class="text-center">Voltar</a>
+{% endblock %}
+

@@ -1,1 +1,7 @@
-<h1>Página não encontrada</h1>
+{% extends 'login_base.html' %}
+{% load static from staticfiles %}
+{% load widget_tweaks %}
+{% block content %}
+    <p><h1>Página não encontrada. (404)</h1></p>
+    <a href="{% url 'inicio' %}" class="text-center">Voltar</a>
+{% endblock %}
