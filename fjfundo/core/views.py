@@ -4,7 +4,9 @@ from django.shortcuts import render, render_to_response, get_object_or_404, reso
 from django.contrib.auth import authenticate, login, logout
 from django.template import RequestContext
 from fjfundo.core.forms import LoginForm, EditAccountForm, PasswordResetForm
-from fjfundo.core.models import MyUser
+from fjfundo.core.models import MyUser, PasswordReset
+from django.contrib.auth.forms import SetPasswordForm
+from datetime import date
 
 
 def inicio(request):
@@ -72,6 +74,9 @@ def account_edit(request, id):
 
 @login_required
 def account_list(request):
+    if request.user.nivel == 0:
+        return HttpResponseRedirect(r('dashboard'))
+
     turma = MyUser.getTurma(request.user, request)
     context = {}
     context['turma'] = turma
@@ -90,5 +95,23 @@ def password_reset(request):
     return render(request, 'password_reset.html', context)
 
 
-# def password_reset_confirm(request, key):
-#     pass
+def password_reset_confirm(request, key):
+    context = {}
+    reset = get_object_or_404(PasswordReset, key=key)
+
+    if reset.confirmed:
+        context['error'] = True
+        return render(request, 'password_reset_confirm.html', context)
+
+    if reset.created_on.date() != date.today():
+        context['error'] = True
+        return render(request, 'password_reset_confirm.html', context)
+
+    form = SetPasswordForm(user=reset.user, data=request.POST or None)
+    if form.is_valid():
+        form.save()
+        reset.confirmed = True
+        reset.save()
+        context['success'] = True
+    context['form'] = form
+    return render(request, 'password_reset_confirm.html', context)

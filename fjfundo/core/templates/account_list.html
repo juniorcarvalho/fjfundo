@@ -18,70 +18,71 @@
 {% endblock bodyStart %}
 
 {% block content %}
-<div class="content-wrapper">
-  <section class="content-header">
-    <h1>
-      Associados
-{#      <small>Associados</small>#}
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="{% url 'dashboard' %}"><i class="glyphicon glyphicon-home"></i>Menu Principal</a></li>
-      <li class="active">Associados</li>
-    </ol>
-  </section>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                Associados
+                {#      <small>Associados</small>#}
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="{% url 'dashboard' %}"><i class="glyphicon glyphicon-home"></i>Menu Principal</a></li>
+                <li class="active">Associados</li>
+            </ol>
+        </section>
 
-  <section class="content">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="box box-solid">
-             <div class="box-body">
-                  <table id="users_list" class="cell-border hover" cellspacing="0" width="100%">
-                      <thead>
-                          <tr>
-                              <th>Nome</th>
-                              <th>Email</th>
-                              <th>Telefone</th>
-                              <th></th>
-                              <th></th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                        {% for user in users %}
-                            <tr>
-                                <td>{{ user.nome }}</td>
-                                <td>{{ user.email }}</td>
-                                <td>{{ user.fone1 }}</td>
-                                <td>
-                                    <a class="btn btn-success btn-xs center-block"
-                                       href="{% url 'account_edit' user.pk %}">Atualizar Cadastro</a>
-                                </td>
-                                <td>
-                                    <a class="btn btn-info btn-xs center-block"
-                                       href="{% url 'extrato' user.pk %}">Extrato financeiro</a>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                      </tbody>
-                  </table>
-             </div>
-          </div>
-        </div>
-      </div>
-  </section>
-</div>
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-solid">
+                        <div class="box-body">
+                            <table id="users_list" class="cell-border hover" cellspacing="0" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Email</th>
+                                    <th>Telefone</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for user in users %}
+                                    <tr>
+                                        <td>{{ user.nome }}</td>
+                                        <td>{{ user.email }}</td>
+                                        <td>{{ user.fone1 }}</td>
+                                        <td>
+                                            <a class="btn btn-success btn-xs center-block"
+                                               href="{% url 'account_edit' user.pk %}">Atualizar Cadastro</a>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-info btn-xs center-block"
+                                               href="{% url 'extrato' user.pk %}">Extrato financeiro</a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 {% endblock content %}
 
 {% block javascript %}
     <script>
-        $(document).ready(function(){
-        $('.div-ajax-carregamento-pagina').fadeOut('fast');
+        $(document).ready(function () {
+            $('.div-ajax-carregamento-pagina').fadeOut('fast');
         });
     </script>
-   <!-- DataTables -->
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+    <!-- DataTables -->
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#users_list').DataTable( {
+        $(document).ready(function () {
+            $('#users_list').DataTable({
                 scrollX: true,
                 retrieve: true,
                 searching: true,
@@ -89,8 +90,8 @@
                 paging: true,
                 lengthChange: false,
                 columnDefs: [
-                    { orderable: true, className: 'reorder', targets: [0, 1, 2, ] },
-                    { orderable: false, targets: '_all' }
+                    {orderable: true, className: 'reorder', targets: [0, 1, 2,]},
+                    {orderable: false, targets: '_all'}
                 ],
                 language: {
                     sEmptyTable: "Nenhum registro encontrado",
@@ -115,7 +116,7 @@
                         sSortDescending: ": Ordenar colunas de forma descendente"
                     }
                 }
-            } );
-        } );
+            });
+        });
     </script>
 {% endblock javascript %}

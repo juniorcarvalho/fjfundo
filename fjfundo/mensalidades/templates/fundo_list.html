@@ -18,62 +18,63 @@
 {% endblock bodyStart %}
 
 {% block content %}
-<div class="content-wrapper">
-  <section class="content-header">
-    <h1>
-      Fundos
-{#      <small>Associados</small>#}
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="{% url 'dashboard' %}"><i class="glyphicon glyphicon-home"></i>Menu Principal</a></li>
-      <li class="active">Fundos</li>
-    </ol>
-  </section>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                Fundos
+                {#      <small>Associados</small>#}
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="{% url 'dashboard' %}"><i class="glyphicon glyphicon-home"></i>Menu Principal</a></li>
+                <li class="active">Fundos</li>
+            </ol>
+        </section>
 
-  <section class="content">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="box box-solid">
-             <div class="box-body">
-                  <table id="fundo_list" class="cell-border hover" cellspacing="0" width="100%">
-                      <thead>
-                          <tr>
-                              <th>CNPJ</th>
-                              <th>Fundo</th>
-                              <th>Data Inicial</th>
-                              <th>Data Final</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                        {% for fundo in fundos %}
-                            <tr>
-                                <td>{{ fundo.cnpj }}</td>
-                                <td>{{ fundo.nome_fundo }}</td>
-                                <td>{{ fundo.data_inicial }}</td>
-                                <td>{{ fundo.data_final }}</td>
-                            </tr>
-                        {% endfor %}
-                      </tbody>
-                  </table>
-             </div>
-          </div>
-        </div>
-      </div>
-  </section>
-</div>
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-solid">
+                        <div class="box-body">
+                            <table id="fundo_list" class="cell-border hover" cellspacing="0" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>CNPJ</th>
+                                    <th>Fundo</th>
+                                    <th>Data Inicial</th>
+                                    <th>Data Final</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for fundo in fundos %}
+                                    <tr>
+                                        <td>{{ fundo.cnpj }}</td>
+                                        <td>{{ fundo.nome_fundo }}</td>
+                                        <td>{{ fundo.data_inicial }}</td>
+                                        <td>{{ fundo.data_final }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 {% endblock content %}
 
 {% block javascript %}
     <script>
-        $(document).ready(function(){
-        $('.div-ajax-carregamento-pagina').fadeOut('fast');
+        $(document).ready(function () {
+            $('.div-ajax-carregamento-pagina').fadeOut('fast');
         });
     </script>
-   <!-- DataTables -->
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+    <!-- DataTables -->
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#fundo_list').DataTable( {
+        $(document).ready(function () {
+            $('#fundo_list').DataTable({
                 scrollX: true,
                 retrieve: true,
                 searching: true,
@@ -81,8 +82,8 @@
                 paging: true,
                 lengthChange: false,
                 columnDefs: [
-                    { orderable: true, className: 'reorder', targets: [0, 1, 2, 3, ] },
-                    { orderable: false, targets: '_all' }
+                    {orderable: true, className: 'reorder', targets: [0, 1, 2, 3,]},
+                    {orderable: false, targets: '_all'}
                 ],
                 language: {
                     sEmptyTable: "Nenhum registro encontrado",
@@ -107,7 +108,7 @@
                         sSortDescending: ": Ordenar colunas de forma descendente"
                     }
                 }
-            } );
-        } );
+            });
+        });
     </script>
 {% endblock javascript %}

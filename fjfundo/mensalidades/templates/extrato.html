@@ -10,10 +10,12 @@
         th, table.dataTable tbody td {
             vertical-align: middle;
         }
-        .valores{
+
+        .valores {
             text-align: right;
         }
-        .data{
+
+        .data {
             text-align: center;
         }
     </style>
@@ -25,87 +27,88 @@
 {% endblock bodyStart %}
 
 {% block content %}
-<div class="content-wrapper">
-  <section class="content-header">
-    <h1>
-      Extrato Financeiro
-{#      <small>Associados</small>#}
-    </h1>
-    <ol class="breadcrumb">
-      <li><a href="{% url 'dashboard' %}"><i class="glyphicon glyphicon-home"></i>Menu Principal</a></li>
-          {% if user.nivel > 0 %}
-              <li><a href="{% url 'account_list' %}">Associados</a></li>
-          {% endif %}
-      <li class="active">Extrato Financeiro</li>
-    </ol>
-  </section>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>
+                Extrato Financeiro
+                {#      <small>Associados</small>#}
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="{% url 'dashboard' %}"><i class="glyphicon glyphicon-home"></i>Menu Principal</a></li>
+                {% if user.nivel > 0 %}
+                    <li><a href="{% url 'account_list' %}">Associados</a></li>
+                {% endif %}
+                <li class="active">Extrato Financeiro</li>
+            </ol>
+        </section>
 
-  <section class="content">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="box box-solid">
-             <div class="box-body">
-                  <table id="fundo_list" class="cell-border hover" cellspacing="0" width="100%">
-                      <thead>
-                          <tr>
-                              <th>Parcela</th>
-                              <th>Vencimento</th>
-                              <th>Pagamento</th>
-                              <th>Valor</th>
-                              <th>Valor Extra</th>
-                              <th>Acre/Desc</th>
-                              <th>Total</th>
-                              <th>Juros Banco</th>
-                              <th>Valor Pago</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                        {% for dado in dados %}
-                            <tr>
-                                <td>{{ dado.parcela }}</td>
-                                <td class="data">{{ dado.data_vencimento| date:"d/m/Y" }}</td>
-                                <td class="data">{{ dado.data_pagamento | date:"d/m/Y" }}</td>
-                                <td class="valores">{{ dado.valor|currency:"pt_BR.UTF8" }}</td>
-                                <td class="valores">{{ dado.valor_extra|currency:"pt_BR.UTF8" }}</td>
-                                <td class="valores">{{ dado.valor_acresdesc|currency:"pt_BR.UTF8" }}</td>
-                                <td class="valores">{{ dado.valor_liquido|currency:"pt_BR.UTF8" }}</td>
-                                <td class="valores">{{ dado.valor_jurdescbco|currency:"pt_BR.UTF8" }}</td>
-                                <td class="valores">0</td>
-                            </tr>
-                        {% endfor %}
-                      </tbody>
-                  </table>
-             </div>
-          </div>
-        </div>
-      </div>
-    <br/>
-    <div class="row">
-        {% if user.nivel > 0 %}
-            <div class="col-xs-2">
-              <a href="{% url 'account_list' %}" class="btn btn-danger btn-block btn-flat">Retornar</a>
+        <section class="content">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box box-solid">
+                        <div class="box-body">
+                            <table id="fundo_list" class="cell-border hover" cellspacing="0" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>Parcela</th>
+                                    <th>Vencimento</th>
+                                    <th>Pagamento</th>
+                                    <th>Valor</th>
+                                    <th>Valor Extra</th>
+                                    <th>Acre/Desc</th>
+                                    <th>Total</th>
+                                    <th>Juros Banco</th>
+                                    <th>Valor Pago</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for dado in dados %}
+                                    <tr>
+                                        <td>{{ dado.parcela }}</td>
+                                        <td class="data">{{ dado.data_vencimento| date:"d/m/Y" }}</td>
+                                        <td class="data">{{ dado.data_pagamento | date:"d/m/Y" }}</td>
+                                        <td class="valores">{{ dado.valor|currency:"pt_BR.UTF8" }}</td>
+                                        <td class="valores">{{ dado.valor_extra|currency:"pt_BR.UTF8" }}</td>
+                                        <td class="valores">{{ dado.valor_acresdesc|currency:"pt_BR.UTF8" }}</td>
+                                        <td class="valores">{{ dado.valor_liquido|currency:"pt_BR.UTF8" }}</td>
+                                        <td class="valores">{{ dado.valor_jurdescbco|currency:"pt_BR.UTF8" }}</td>
+                                        <td class="valores">0</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-        {% else %}
-            <div class="col-xs-2">
-              <a href="{% url 'dashboard' %}" class="btn btn-danger btn-block btn-flat">Retornar</a>
+            <br/>
+            <div class="row">
+                {% if user.nivel > 0 %}
+                    <div class="col-xs-2">
+                        <a href="{% url 'account_list' %}" class="btn btn-danger btn-block btn-flat">Retornar</a>
+                    </div>
+                {% else %}
+                    <div class="col-xs-2">
+                        <a href="{% url 'dashboard' %}" class="btn btn-danger btn-block btn-flat">Retornar</a>
+                    </div>
+                {% endif %}
             </div>
-        {% endif %}
+        </section>
     </div>
-  </section>
-</div>
 {% endblock content %}
 
 {% block javascript %}
     <script>
-        $(document).ready(function(){
-        $('.div-ajax-carregamento-pagina').fadeOut('fast');
+        $(document).ready(function () {
+            $('.div-ajax-carregamento-pagina').fadeOut('fast');
         });
     </script>
-   <!-- DataTables -->
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+    <!-- DataTables -->
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
     <script>
-        $(document).ready(function() {
-            $('#fundo_list').DataTable( {
+        $(document).ready(function () {
+            $('#fundo_list').DataTable({
                 scrollX: true,
                 retrieve: true,
                 searching: true,
@@ -113,8 +116,8 @@
                 paging: true,
                 lengthChange: false,
                 columnDefs: [
-                    { orderable: true, className: 'reorder', targets: [0, 7, 8, ] },
-                    { orderable: false, targets: '_all' }
+                    {orderable: true, className: 'reorder', targets: [0, 7, 8,]},
+                    {orderable: false, targets: '_all'}
                 ],
                 language: {
                     sEmptyTable: "Nenhum registro encontrado",
@@ -139,7 +142,7 @@
                         sSortDescending: ": Ordenar colunas de forma descendente"
                     }
                 }
-            } );
-        } );
+            });
+        });
     </script>
 {% endblock javascript %}

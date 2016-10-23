@@ -24,7 +24,7 @@ class AccountListTest(TestCase):
         )
 
         self.user = MyUser.objects.create_user(email='user@email.com', password='senha@123',
-                                               nome='Usuario teste', nivel=0, fone1='1234567890',
+                                               nome='Usuario teste', nivel=1, fone1='1234567890',
                                                turma=self.turma)
         self.client.login(email='user@email.com', password='senha@123')
         self.response = self.client.get(r('account_list'))
