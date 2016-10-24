@@ -49,8 +49,8 @@
                                     <tr>
                                         <td>{{ fundo.cnpj }}</td>
                                         <td>{{ fundo.nome_fundo }}</td>
-                                        <td>{{ fundo.data_inicial }}</td>
-                                        <td>{{ fundo.data_final }}</td>
+                                        <td>{{ fundo.data_inicial | date:"d/m/Y" }}</td>
+                                        <td>{{ fundo.data_final | date:"d/m/Y" }}</td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
@@ -75,6 +75,7 @@
     <script>
         $(document).ready(function () {
             $('#fundo_list').DataTable({
+                order: [[0, "asc"]],
                 scrollX: true,
                 retrieve: true,
                 searching: true,
@@ -82,7 +83,7 @@
                 paging: true,
                 lengthChange: false,
                 columnDefs: [
-                    {orderable: true, className: 'reorder', targets: [0, 1, 2, 3,]},
+                    {orderable: true, className: 'reorder', targets: [0, 1, ]},
                     {orderable: false, targets: '_all'}
                 ],
                 language: {

@@ -48,7 +48,7 @@
                                     <tr>
                                         <td>{{ turma.fundo }}</td>
                                         <td>{{ turma.nome_turma }}</td>
-                                        <td>{{ turma.data_formatura }}</td>
+                                        <td>{{ turma.data_formatura | date:"d/m/Y"  }}</td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>
@@ -73,6 +73,7 @@
     <script>
         $(document).ready(function () {
             $('#turma_list').DataTable({
+                order: [[0, "asc"]],
                 scrollX: true,
                 retrieve: true,
                 searching: true,
@@ -80,7 +81,7 @@
                 paging: true,
                 lengthChange: false,
                 columnDefs: [
-                    {orderable: true, className: 'reorder', targets: [0, 1, 2,]},
+                    {orderable: true, className: 'reorder', targets: [0, 1,]},
                     {orderable: false, targets: '_all'}
                 ],
                 language: {
