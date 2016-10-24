@@ -106,9 +106,13 @@
     <!-- DataTables -->
     <script type="text/javascript" charset="utf8"
             src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8"
+            src="https://cdn.datatables.net/plug-ins/1.10.12/sorting/date-uk.js"></script>
+
     <script>
         $(document).ready(function () {
             $('#fundo_list').DataTable({
+                order: [[1, "desc"]],
                 scrollX: true,
                 retrieve: true,
                 searching: true,
@@ -116,8 +120,9 @@
                 paging: true,
                 lengthChange: false,
                 columnDefs: [
-                    {orderable: true, className: 'reorder', targets: [0, 7, 8,]},
-                    {orderable: false, targets: '_all'}
+                    {orderable: true, className: 'reorder', targets: [0, 1, 2,]},
+                    {orderable: false, targets: '_all'},
+                    {type: "date-uk", targets: [1,2]}
                 ],
                 language: {
                     sEmptyTable: "Nenhum registro encontrado",

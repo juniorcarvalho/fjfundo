@@ -80,7 +80,7 @@ def account_list(request):
     turma = MyUser.getTurma(request.user, request)
     context = {}
     context['turma'] = turma
-    users = MyUser.objects.filter(turma=turma).order_by('nome')
+    users = MyUser.objects.filter(turma=turma)
     context['users'] = users
     return render(request, 'account_list.html', context)
 

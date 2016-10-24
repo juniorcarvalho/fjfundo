@@ -60,7 +60,7 @@ def extrato(request, id_usr):
     context = {}
     context['turma'] = turma
 
-    financeiro = Financeiro.objects.filter(usuario=user).order_by('-data_vencimento')
+    financeiro = Financeiro.objects.filter(usuario=user)
     context['dados'] = financeiro
 
     return render(request, 'extrato.html', context)
