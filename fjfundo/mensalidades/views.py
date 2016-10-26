@@ -9,7 +9,7 @@ from fjfundo.core.models import MyUser
 
 @login_required
 def fundo_list(request):
-    if request.user.nivel == 3:
+    if request.user.nivel == 2:
         fundo = Fundo.objects.all().order_by('nome_fundo')
         return render(request, 'fundo_list.html', {'fundos': fundo})
     else:
@@ -18,7 +18,7 @@ def fundo_list(request):
 
 @login_required
 def turma_list(request):
-    if request.user.nivel == 3:
+    if request.user.nivel == 2:
         turma = Turma.objects.all().order_by('fundo', 'nome_turma')
         return render(request, 'turma_list.html', {'turmas': turma})
     else:

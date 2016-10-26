@@ -60,7 +60,7 @@ class MyUser(PermissionsMixin, AbstractBaseUser):
     @staticmethod
     def getTurma(user, request):
         myuser = MyUser.objects.get(email=user)
-        if myuser.nivel == 3:
+        if myuser.nivel == 2:
             return Turma.objects.get(pk=request.session['turma_id'])
         else:
             return Turma.objects.get(pk=myuser.turma_id)
@@ -69,7 +69,7 @@ class MyUser(PermissionsMixin, AbstractBaseUser):
     @staticmethod
     def getTurmaId(user):
         myuser = MyUser.objects.get(pk=user.pk)
-        if myuser.nivel == 3:
+        if myuser.nivel == 2:
             return Turma.objects.order_by('nome_turma')[0].pk
         else:
             return Turma.objects.get(pk=myuser.turma_id).pk
