@@ -174,7 +174,7 @@
                     </li>
                 {% endif %}
 
-                {% if user.nivel == 3 %}
+                {% if user.nivel == 2 %}
                     <li class={% if request.resolver_match.url_name == "fundo_list" %}active{% endif %}>
                         <a href="{% url 'fundo_list' %}">
                             <i class="glyphicon glyphicon-th"></i>
